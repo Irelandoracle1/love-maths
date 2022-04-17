@@ -7,16 +7,30 @@ for(let button of buttons){
             alert( "YOU CLICKED SUBMIT !");
         } else{
             let gameType = this.getAttribute("data-type");
-            alert(`You clicked ${gameType}`);
+            runGame(gameType);
         }
     })
 }
+
+runGame("addition")
 })
 
+/**
+ * 
+ */
+function runGame(gameType) {
+let num1 = Math.floor(Math.random() * 25 ) + 1;
+let num2 = Math.floor(Math.random() * 25 ) + 1;
 
-function runGame() {
-
+if (gameType === ' addition') {
+    displayAdditionQuestion(num1 , num2)
+} else{
+    alert( `unknownGameType : $ {gameType}`);
+    throw `unknown game type: $ {gameType} . Aborting`;
 }
+}
+
+
 
 function checkAnswer() {
 
@@ -34,8 +48,10 @@ function incremateWrongAnswer() {
 
 }
 
-function displayAdditionQuestion() {
-
+function displayAdditionQuestion(operand1 , operand2) {
+document.getElementById('operand1') .textContent = operand1;
+document.getElementById('operand2') .textContent = operand2;
+document.getElementById('operator') .textContent = '+';
 }
 
 function displaySubtractQuestion() {
