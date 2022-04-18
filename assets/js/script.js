@@ -4,40 +4,62 @@ let buttons = document.getElementsByTagName("button");
 for(let button of buttons){
     button.addEventListener("click" , function(){
         if (this.getAttribute("data-type") === "submit"){
-            alert( "YOU CLICKED SUBMIT !");
+            checkAnswer();
         } else{
             let gameType = this.getAttribute("data-type");
             runGame(gameType);
         }
-    })
+    });
 }
 
-runGame("addition")
-})
+runGame("addition");
+});
 
-/**
- * 
- */
+
 function runGame(gameType) {
 let num1 = Math.floor(Math.random() * 25 ) + 1;
 let num2 = Math.floor(Math.random() * 25 ) + 1;
 
-if (gameType === ' addition') {
-    displayAdditionQuestion(num1 , num2)
+
+if (gameType === "addition") {
+    displayAdditionQuestion(num1, num2);
 } else{
-    alert( `unknownGameType : $ {gameType}`);
-    throw `unknown game type: $ {gameType} . Aborting`;
+    alert(`unknownGameType : ${gameType}`);
+    throw `unknown game type:${gameType}.Aborting`;
 }
+
 }
 
 
 
 function checkAnswer() {
 
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let calculatedAnswer = calculateCorrectAnswer();
+    let isCorrect = userAnswer === calculatedAnswer[0];
+
+    if (isCorrect) {
+        alert("Hey! You got it right! :D");
+    } else {
+        alert(`Awwww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+    }
+
+    runGame(calculatedAnswer[1]);
+
 }
 
-function calculateCorrectaanswer() {
 
+function calculateCorrectaanswer() {
+let operand1 = parseInt(document.getElementById('operand1').innerText);
+let operand2 = parseInt(document.getElementById('operand2').innerText);
+let operator = document.getElementById("operator").innerText
+
+if (operator === "+") {
+    return[operand1 + operand2, "addition"];
+} else{
+   alert (`unimplimented operator ${operator}`);
+   throw `unimplimented operator ${operator} .Aborting`;
+}
 }
 
 function incrementScore(){
@@ -48,10 +70,10 @@ function incremateWrongAnswer() {
 
 }
 
-function displayAdditionQuestion(operand1 , operand2) {
-document.getElementById('operand1') .textContent = operand1;
-document.getElementById('operand2') .textContent = operand2;
-document.getElementById('operator') .textContent = '+';
+function displayAdditionQuestion(operand1, operand2) {
+document.getElementById('operand1').textContent = operand1;
+document.getElementById('operand2').textContent = operand2;
+document.getElementById('operator').textContent = "+";
 }
 
 function displaySubtractQuestion() {
